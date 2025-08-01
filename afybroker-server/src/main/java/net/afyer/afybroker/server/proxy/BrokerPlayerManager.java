@@ -32,7 +32,7 @@ public class BrokerPlayerManager {
         UUID uid = player.getUniqueId();
         BrokerPlayer absent = byUid.putIfAbsent(uid, player);
         if (absent == null) {
-            byName.put(player.getName(), player);
+            byName.put(player.getName().toLowerCase(), player);
         }
         return absent;
     }
@@ -40,7 +40,7 @@ public class BrokerPlayerManager {
     public void removePlayer(UUID uid) {
         BrokerPlayer player = byUid.remove(uid);
         if (player != null) {
-            byName.remove(player.getName());
+            byName.remove(player.getName().toLowerCase());
         }
     }
 
@@ -51,7 +51,7 @@ public class BrokerPlayerManager {
 
     @Nullable
     public BrokerPlayer getPlayer(String name) {
-        return byName.get(name);
+        return byName.get(name.toLowerCase());
     }
 
 }
