@@ -40,7 +40,7 @@ public class PlayerProxyConnectBrokerProcessor extends SyncUserProcessor<PlayerP
                     request.getName(), playerBungee.getName());
         }
 
-        BrokerPlayer brokerPlayer = new BrokerPlayer(request.getUniqueId(), request.getName(), playerBungee);
+        BrokerPlayer brokerPlayer = new BrokerPlayer(request.getUniqueId(), request.getName(), request.getIP(), playerBungee);
         return handlePlayerAdd(brokerServer, brokerPlayer);
     }
 

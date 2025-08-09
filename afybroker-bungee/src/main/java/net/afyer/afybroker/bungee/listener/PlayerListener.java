@@ -15,6 +15,8 @@ import net.md_5.bungee.api.event.ServerConnectedEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
+import java.net.InetSocketAddress;
+
 /**
  * @author Nipuru
  * @since 2022/7/30 18:44
@@ -34,9 +36,12 @@ public class PlayerListener implements Listener {
         PendingConnection connection = event.getConnection();
         ProxyServer.getInstance().getScheduler().runAsync(plugin, () -> {
             try {
+                InetSocketAddress socketAddress = (InetSocketAddress) event.getConnection().getSocketAddress();
+                String ip = socketAddress.getAddress().getHostAddress();
                 PlayerProxyConnectMessage connectMessage = new PlayerProxyConnectMessage()
                         .setUniqueId(connection.getUniqueId())
-                        .setName(connection.getName());
+                        .setName(connection.getName())
+                        .setIP(ip);
 
                 boolean result = plugin.getBrokerClient().invokeSync(connectMessage);
 

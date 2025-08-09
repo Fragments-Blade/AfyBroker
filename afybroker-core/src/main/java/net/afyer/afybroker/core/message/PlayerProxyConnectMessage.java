@@ -30,4 +30,7 @@ public class PlayerProxyConnectMessage implements Serializable {
     /** 玩家名 */
     String name;
 
+    /** 玩家IP */
+    String IP;
+
 }

@@ -9,10 +9,7 @@ import lombok.AccessLevel;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import net.afyer.afybroker.core.BrokerClientType;
-import net.afyer.afybroker.core.BrokerGlobalConfig;
-import net.afyer.afybroker.core.BrokerServiceDescriptor;
-import net.afyer.afybroker.core.MetadataKeys;
+import net.afyer.afybroker.core.*;
 import net.afyer.afybroker.core.message.BrokerClientInfoMessage;
 import net.afyer.afybroker.core.message.RequestBrokerClientInfoMessage;
 import net.afyer.afybroker.core.message.RequestPlayerInfoMessage;
@@ -118,9 +115,12 @@ public class ConnectEventBrokerProcessor implements ConnectionEventProcessor, Br
         return new AbstractInvokeCallback() {
             @Override
             public void onResponse(Object result) {
-                Map<UUID, String> playerMap = cast(result);
-                playerMap.forEach((uuid, name) -> {
-                    BrokerPlayer brokerPlayer = new BrokerPlayer(uuid, name, bungeeClient);
+                List<BrokerPlayerInformation> playerList = cast(result);
+                playerList.forEach(information -> {
+                    UUID uuid = information.uuid;
+                    String name = information.name;
+                    String ip = information.IP;
+                    BrokerPlayer brokerPlayer = new BrokerPlayer(uuid, name, ip, bungeeClient);
                     if (!PlayerProxyConnectBrokerProcessor.handlePlayerAdd(brokerServer, brokerPlayer)) return;
                     String bukkitAddress = playerBukkitMap.remove(uuid);
                     if (bukkitAddress == null) return;

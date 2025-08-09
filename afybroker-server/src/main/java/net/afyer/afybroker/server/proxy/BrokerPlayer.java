@@ -26,6 +26,8 @@ public class BrokerPlayer {
     final UUID uniqueId;
     /** 玩家名字 */
     final String name;
+    /** 玩家 IP */
+    final String IP;
     /** 玩家所在的 Proxy 服务器客户端代理 */
     final BrokerClientItem proxy;
 
@@ -33,9 +35,10 @@ public class BrokerPlayer {
     @Nullable
     BrokerClientItem server;
 
-    public BrokerPlayer(UUID uniqueId, String name, BrokerClientItem proxy) {
+    public BrokerPlayer(UUID uniqueId, String name, String IP, BrokerClientItem proxy) {
         this.uniqueId = uniqueId;
         this.name = name;
+        this.IP = IP;
         this.proxy = proxy;
     }
 
@@ -73,6 +76,7 @@ public class BrokerPlayer {
         return "BrokerPlayer{" +
                 ", uid=" + uniqueId +
                 ", name='" + name + '\'' +
+                ", IP='" + IP + '\'' +
                 ", bungeeProxy='" + proxy + '\'' +
                 ", bukkitServer='" + proxy + '\'' +
                 '}';

@@ -30,7 +30,8 @@ public class PlayerListener {
             Player player = event.getPlayer();
             PlayerProxyConnectMessage connectMessage = new PlayerProxyConnectMessage()
                     .setUniqueId(player.getUniqueId())
-                    .setName(player.getUsername());
+                    .setName(player.getUsername())
+                    .setIP(player.getRemoteAddress().getAddress().getHostAddress());
 
             boolean result = plugin.getBrokerClient().invokeSync(connectMessage);
 
